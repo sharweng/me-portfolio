@@ -12,6 +12,7 @@
     mail:   `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm3.519 0L12 11.671 18.481 6H5.52ZM20 7.329l-7.341 6.424a1 1 0 0 1-1.318 0L4 7.329V18h16V7.329Z" fill="currentColor"/></svg>`,
     rss:    `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z" fill="currentColor"/></svg>`,
     link:   `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    globe:    `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/></svg>`,
     facebook: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z" fill="currentColor"/></svg>`,
     linkedin: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6ZM2 9h4v12H2V9Zm2-6a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z" fill="currentColor"/></svg>`,
     arrow:  `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
@@ -87,18 +88,29 @@
     const grid = $('project-grid');
     if (!grid) return;
 
-    grid.innerHTML = projects.map((p, i) => `
+    grid.innerHTML = projects.map((p, i) => {
+      // Hide stars when 0 or "0"
+      const showStars = p.stars && String(p.stars) !== '0';
+
+      return `
       <article class="project-card" role="listitem">
         <div class="project-card-header">
           <span class="project-status-dot ${p.status || 'active'}"
                 title="${p.status || 'active'}" aria-label="Status: ${p.status || 'active'}"></span>
           <span class="project-name">${escHtml(p.name)}</span>
-          ${p.stars ? `<span class="project-stars" aria-label="${p.stars} stars">${escHtml(p.stars)}</span>` : ''}
-          ${p.url ? `
-            <a href="${p.url}" class="project-link" target="_blank" rel="noopener noreferrer"
-               aria-label="View ${escAttr(p.name)} on GitHub">
-              ${ICONS.link}
-            </a>` : ''}
+          ${showStars ? `<span class="project-stars" aria-label="${escAttr(p.stars)} stars">${escHtml(p.stars)}</span>` : ''}
+          <span class="project-actions">
+            ${p.website ? `
+              <a href="${p.website}" class="project-link project-link--site" target="_blank" rel="noopener noreferrer"
+                 aria-label="Visit live site for ${escAttr(p.name)}" title="Live site">
+                ${ICONS.globe}
+              </a>` : ''}
+            ${p.url ? `
+              <a href="${p.url}" class="project-link" target="_blank" rel="noopener noreferrer"
+                 aria-label="View ${escAttr(p.name)} on GitHub" title="GitHub repo">
+                ${ICONS.link}
+              </a>` : ''}
+          </span>
         </div>
         <p class="project-desc">${escHtml(p.description)}</p>
         ${p.tags?.length ? `
@@ -106,7 +118,7 @@
             ${p.tags.map(t => `<span class="tag">${escHtml(t)}</span>`).join('')}
           </div>` : ''}
       </article>
-    `).join('');
+    `}).join('');
   }
 
   /* ── Render credentials ───────────────────────────────── */

@@ -7,11 +7,11 @@
 const PORTFOLIO = {
 
   /* ── Personal info ──────────────────────────────────────── */
-  name: "Marbella, Sharwin John C.",
+  name: "Sharwin John Marbella",
   title: "Software Engineer & Open-Source Contributor",
   location: "Taguig, PH",
   bio: "I build thoughtful software that respects users. Currently focused on systems programming, developer tooling, and the occasional weekend distro hack.",
-  avatar: "", // URL or leave empty for initials
+  avatar: "https://res.cloudinary.com/dcug5cq7c/image/upload/v1790440300/240322-DSC08307_2_g1keuf.jpg", // GitHub profile pic — change to any image URL
 
   /* ── Social / contact links ─────────────────────────────── */
   links: [
@@ -41,9 +41,10 @@ const PORTFOLIO = {
   projects: [
     {
       name: "sjmOSwebsite",
-      description: "This is a website I built to gain knowledge for different Windows OS installation. ",
+      description: "This is a website I built to gain knowledge for virtual machines, Windows OS installation, & etc. ",
       tags: ["HTML", "CSS"],
       url: "https://github.com/sharweng/sjmOSwebsite",
+      website: "https://sharweng.github.io/sjmOSwebsite",
       stars: "0",
       status: "active", // active | archived | wip
     },
@@ -52,24 +53,27 @@ const PORTFOLIO = {
       description: "A website that contains my journey to learn Blender and rotoscope for animation.",
       tags: ["HTML", "JavaScript", "CSS"],
       url: "https://github.com/sharweng/multimedia",
+      website: "https://sharweng.github.io/multimedia",
       stars: "0",
       status: "active",
     },
     {
-      name: "quickshell-bar",
-      description: "A minimal, hackable status bar widget built with Quickshell. Keyboard-first, zero mouse required.",
-      tags: ["QML", "Quickshell", "Wayland"],
-      url: "https://github.com/yourusername/quickshell-bar",
-      stars: "312",
-      status: "wip",
+      name: "tupGradeCalc",
+      description: "A simple calculator to calculate grades.",
+      tags: ["HTML"],
+      url: "https://github.com/sharweng/tupGradeCalc",
+      website: "https://sharweng.github.io/tupGradeCalc",
+      stars: "0",
+      status: "active",
     },
     {
-      name: "pg-replica-watch",
-      description: "Monitors PostgreSQL streaming replication lag and fires webhooks when thresholds are breached.",
-      tags: ["Go", "PostgreSQL", "Ops"],
-      url: "https://github.com/yourusername/pg-replica-watch",
-      stars: "205",
-      status: "archived",
+      name: "Feed-A-Stray",
+      description: "This is a sample website idea for feeding stray cats and dogs",
+      tags: ["HTML"],
+      url: "https://github.com/sharweng/Feed-A-Stray",
+      website: "https://sharweng.github.io/Feed-A-Stray",
+      stars: "0",
+      status: "active",
     },
   ],
 
