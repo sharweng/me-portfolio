@@ -9,23 +9,44 @@
   const ICONS = {
     github: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6.475 2 2 6.475 2 12c0 4.425 2.8625 8.1625 6.8375 9.4875.5.0875.6875-.2125.6875-.475 0-.2375-.0125-1.025-.0125-1.8625-2.5125.4625-3.1625-.6125-3.3625-1.175-.1125-.2875-.6-1.175-1.025-1.4125-.35-.1875-.85-.65-.0125-.6625.7875-.0125 1.35.725 1.5375 1.025.9 1.5125 2.3375 1.0875 2.9125.825.0875-.65.35-1.0875.6375-1.3375-2.225-.25-4.55-1.1125-4.55-4.9375 0-1.0875.3875-1.9875 1.025-2.6875-.1-.25-.45-1.275.1-2.65 0 0 .8375-.2625 2.75 1.025.8-.225 1.65-.3375 2.5-.3375s1.7.1125 2.5.3375c1.9125-1.3 2.75-1.025 2.75-1.025.55 1.375.2 2.4.1 2.65.6375.7 1.025 1.5875 1.025 2.6875 0 3.8375-2.3375 4.6875-4.5625 4.9375.3625.3125.675.9125.675 1.85 0 1.3375-.0125 2.4125-.0125 2.75 0 .2625.1875.575.6875.475C19.1375 20.1625 22 16.425 22 12c0-5.525-4.475-10-10-10Z" fill="currentColor"/></svg>`,
     twitter: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.205 2.25h3.308l-7.227 8.26 8.502 11.24H16.13l-5.214-6.817L4.95 21.75H1.64l7.73-8.835L1.215 2.25H8.04l4.713 6.231 5.452-6.231Zm-1.161 17.52h1.833L7.045 4.126H5.078L17.044 19.77Z" fill="currentColor"/></svg>`,
-    mail:   `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm3.519 0L12 11.671 18.481 6H5.52ZM20 7.329l-7.341 6.424a1 1 0 0 1-1.318 0L4 7.329V18h16V7.329Z" fill="currentColor"/></svg>`,
-    rss:    `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z" fill="currentColor"/></svg>`,
-    link:   `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    globe:    `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    mail: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm3.519 0L12 11.671 18.481 6H5.52ZM20 7.329l-7.341 6.424a1 1 0 0 1-1.318 0L4 7.329V18h16V7.329Z" fill="currentColor"/></svg>`,
+    rss: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z" fill="currentColor"/></svg>`,
+    link: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    globe: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/></svg>`,
     facebook: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z" fill="currentColor"/></svg>`,
     linkedin: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6ZM2 9h4v12H2V9Zm2-6a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z" fill="currentColor"/></svg>`,
-    arrow:  `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    pin:    `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></svg>`,
+    arrow: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    pin: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></svg>`,
   };
 
   /* ── Utility helpers ──────────────────────────────────── */
-  const $  = id  => document.getElementById(id);
+  const $ = id => document.getElementById(id);
   const el = tag => document.createElement(tag);
 
   function setInner(id, html) {
     const node = $(id);
     if (node) node.innerHTML = html;
+  }
+
+  /* ── Toast notification ───────────────────────────────── */
+  let toastTimer = null;
+  function showToast(msg) {
+    let toast = $('portfolio-toast');
+    if (!toast) {
+      toast = el('div');
+      toast.id = 'portfolio-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.remove('toast-hide');
+    toast.classList.add('toast-show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('toast-show');
+      toast.classList.add('toast-hide');
+    }, 3000);
   }
 
   /* ── Theme ────────────────────────────────────────────── */
@@ -66,21 +87,33 @@
     document.title = `${p.name} — Portfolio`;
     $('nav-brand') && ($('brand-name').textContent = p.name.toLowerCase().replace(/\s+/g, '.'));
 
-    setInner('hero-name',     escHtml(p.name));
-    setInner('hero-title',    escHtml(p.title));
-    setInner('hero-bio',      escHtml(p.bio));
+    setInner('hero-name', escHtml(p.name));
+    setInner('hero-title', escHtml(p.title));
+    setInner('hero-bio', escHtml(p.bio));
     setInner('hero-location', escHtml(p.location));
 
     // Social links
     const linksEl = $('hero-links');
     if (!linksEl) return;
     linksEl.innerHTML = p.links.map(l => `
-      <a href="${l.url}" class="hero-link" rel="noopener noreferrer" target="_blank" role="listitem"
-         aria-label="${escAttr(l.label)}">
+      <a href="${l.comingSoon ? '#' : l.url}"
+         class="hero-link${l.comingSoon ? ' hero-link--soon' : ''}"
+         ${l.comingSoon ? '' : 'rel="noopener noreferrer" target="_blank"'}
+         role="listitem"
+         aria-label="${escAttr(l.label)}${l.comingSoon ? ' (coming soon)' : ''}">
         ${ICONS[l.icon] || ''}
         ${escHtml(l.label)}
+        ${l.comingSoon ? '<span class="soon-badge">soon</span>' : ''}
       </a>
     `).join('');
+
+    // Intercept coming-soon link clicks
+    linksEl.querySelectorAll('.hero-link--soon').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        showToast('This page is currently in development');
+      });
+    });
   }
 
   /* ── Render projects ──────────────────────────────────── */
@@ -148,16 +181,29 @@
     }
 
     list.innerHTML = posts.map(post => `
-      <li class="post-item" role="listitem">
-        <a href="${post.url}" class="post-link" target="_blank" rel="noopener noreferrer">
+      <li class="post-item${post.comingSoon ? ' post-item--soon' : ''}" role="listitem">
+        <a href="${post.comingSoon ? '#' : post.url}"
+           class="post-link"
+           ${post.comingSoon ? '' : 'target="_blank" rel="noopener noreferrer"'}>
           <span class="post-title">${escHtml(post.title)}</span>
           <span class="post-meta">
             <span class="post-date">${escHtml(post.date)}</span>
-            <span class="post-arrow" aria-hidden="true">${ICONS.arrow}</span>
+            ${post.comingSoon
+        ? '<span class="soon-badge">coming soon</span>'
+        : `<span class="post-arrow" aria-hidden="true">${ICONS.arrow}</span>`
+      }
           </span>
         </a>
       </li>
     `).join('');
+
+    // Intercept coming-soon post clicks
+    list.querySelectorAll('.post-item--soon .post-link').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        showToast('This post doesn\'t exist yet — check back soon!');
+      });
+    });
   }
 
   /* ── Render footer ────────────────────────────────────── */
@@ -169,7 +215,7 @@
   /* ── Sticky nav scroll effect ─────────────────────────── */
   function initScrollEffects() {
     const header = $('site-header');
-    const hero   = $('hero');
+    const hero = $('hero');
     if (!header || !hero) return;
 
     const obs = new IntersectionObserver(
@@ -182,7 +228,7 @@
   /* ── Active nav link highlighting ─────────────────────── */
   function initActiveNav() {
     const sections = document.querySelectorAll('section[id]');
-    const links    = document.querySelectorAll('.nav-link');
+    const links = document.querySelectorAll('.nav-link');
 
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {

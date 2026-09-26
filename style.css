@@ -796,3 +796,74 @@ body {
     text-align: center;
   }
 }
+
+/* ── COMING SOON BADGE ───────────────────────────────────── */
+.soon-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: color-mix(in srgb, var(--wip-dot) 15%, transparent);
+  color: var(--wip-dot);
+  border: 1px solid color-mix(in srgb, var(--wip-dot) 35%, transparent);
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+/* Dim coming-soon hero links slightly */
+.hero-link--soon {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+.hero-link--soon:hover {
+  opacity: 1;
+  color: var(--wip-dot);
+  border-color: color-mix(in srgb, var(--wip-dot) 40%, transparent);
+  background: color-mix(in srgb, var(--wip-dot) 10%, transparent);
+  transform: none;
+}
+
+/* Dim coming-soon post rows */
+.post-item--soon .post-title {
+  opacity: 0.65;
+}
+.post-item--soon:hover .post-title {
+  color: var(--wip-dot);
+  opacity: 1;
+}
+
+/* ── TOAST ───────────────────────────────────────────────── */
+#portfolio-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  z-index: 9999;
+  pointer-events: none;
+  white-space: nowrap;
+
+  /* hidden by default */
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+
+#portfolio-toast.toast-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#portfolio-toast.toast-hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+}

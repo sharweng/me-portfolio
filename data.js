@@ -15,10 +15,10 @@ const PORTFOLIO = {
 
   /* ── Social / contact links ─────────────────────────────── */
   links: [
-    { label: "GitHub", url: "https://github.com/sharweng", icon: "github" },
+    { label: "GitHub",   url: "https://github.com/sharweng",                   icon: "github"   },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/sharwinjohnmarbella", icon: "linkedin" },
-    { label: "Email", url: "mailto:marbellasharwinjohn@gmail.com", icon: "mail" },
-    { label: "Blog", url: "https://yourblog.com", icon: "rss" },
+    { label: "Email",    url: "mailto:marbellasharwinjohn@gmail.com",           icon: "mail"     },
+    { label: "Blog",     url: "https://yourblog.com", icon: "rss", comingSoon: true },
   ],
 
   /* ── Skills / credentials ───────────────────────────────── */
@@ -33,7 +33,7 @@ const PORTFOLIO = {
     },
     {
       category: "Currently Exploring",
-      items: ["Hyprland", "Wayland compositors", "WASM runtimes", "AI-assisted workflows"],
+      items: ["Hyprland", "Game development", "Game engines", "AI-assisted workflows"],
     },
   ],
 
@@ -83,16 +83,19 @@ const PORTFOLIO = {
       title: "Why I switched to Arch (again)",
       url: "https://yourblog.com/arch-again",
       date: "2025-08",
+      comingSoon: true,
     },
     {
       title: "Composing desktop environments with Quickshell",
       url: "https://yourblog.com/quickshell",
       date: "2025-05",
+      comingSoon: true,
     },
     {
       title: "Atomic dotfile management in Rust",
       url: "https://yourblog.com/dotfiles-rust",
       date: "2025-02",
+      comingSoon: true,
     },
   ],
 };
