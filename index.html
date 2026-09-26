@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio</title>
+  <meta name="description" content="Personal portfolio — software engineer & open-source contributor.">
+
+  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────────── -->
+  <header id="site-header">
+    <nav class="nav-inner">
+      <a href="/" class="nav-brand" id="nav-brand" aria-label="Home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name" id="brand-name">portfolio</span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#projects" class="nav-link">projects</a>
+        <a href="#credentials" class="nav-link">skills</a>
+        <a href="#writing" class="nav-link">writing</a>
+      </div>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle light / dark">
+          <svg id="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg id="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ── Main ─────────────────────────────────────────────── -->
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div class="hero-avatar" id="hero-avatar" aria-hidden="true"></div>
+        <div class="hero-text">
+          <h1 class="hero-name" id="hero-name"></h1>
+          <p class="hero-title" id="hero-title"></p>
+          <p class="hero-bio" id="hero-bio"></p>
+          <div class="hero-meta" id="hero-meta">
+            <span class="hero-location" id="hero-location"></span>
+          </div>
+          <div class="hero-links" id="hero-links" role="list" aria-label="Social links"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section" id="projects" aria-labelledby="projects-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="projects-heading">
+          <span class="section-prefix" aria-hidden="true">~/</span>projects
+        </h2>
+        <div class="project-grid" id="project-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Credentials / Skills -->
+    <section class="section section-alt" id="credentials" aria-labelledby="credentials-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="credentials-heading">
+          <span class="section-prefix" aria-hidden="true">~/</span>skills
+        </h2>
+        <div class="credentials-grid" id="credentials-grid"></div>
+      </div>
+    </section>
+
+    <!-- Writing -->
+    <section class="section" id="writing" aria-labelledby="writing-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="writing-heading">
+          <span class="section-prefix" aria-hidden="true">~/</span>writing
+        </h2>
+        <ul class="post-list" id="post-list" role="list"></ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner">
+      <span class="footer-copy" id="footer-copy"></span>
+      <span class="footer-built">built with ♥ &amp; vanilla JS</span>
+    </div>
+  </footer>
+
+  <!-- Data + App -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Service Worker registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(r => console.log('[SW] registered', r.scope))
+          .catch(e => console.warn('[SW] failed', e));
+      });
+    }
+  </script>
+</body>
+</html>
