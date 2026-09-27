@@ -45,6 +45,7 @@ const PORTFOLIO = {
       tags: ["HTML", "CSS"],
       url: "https://github.com/sharweng/sjmOSwebsite",
       website: "https://sharweng.github.io/sjmOSwebsite",
+      demo: "",       // e.g. a Loom/YouTube video URL, or leave empty to hide
       stars: "0",
       status: "active", // active | archived | wip
     },
@@ -54,6 +55,7 @@ const PORTFOLIO = {
       tags: ["HTML", "JavaScript", "CSS"],
       url: "https://github.com/sharweng/multimedia",
       website: "https://sharweng.github.io/multimedia",
+      demo: "",
       stars: "0",
       status: "active",
     },
@@ -63,6 +65,7 @@ const PORTFOLIO = {
       tags: ["HTML"],
       url: "https://github.com/sharweng/tupGradeCalc",
       website: "https://sharweng.github.io/tupGradeCalc",
+      demo: "",
       stars: "0",
       status: "active",
     },
@@ -72,6 +75,7 @@ const PORTFOLIO = {
       tags: ["HTML"],
       url: "https://github.com/sharweng/Feed-A-Stray",
       website: "https://sharweng.github.io/Feed-A-Stray",
+      demo: "",
       stars: "0",
       status: "active",
     },

@@ -194,6 +194,18 @@
       // Hide stars when 0 or "0"
       const showStars = p.stars && String(p.stars) !== '0';
 
+      const githubLink = p.url ? `
+        <a href="${p.url}" class="project-link project-link--text" target="_blank" rel="noopener noreferrer"
+           aria-label="View ${escAttr(p.name)} on GitHub">github</a>` : '';
+
+      const websiteLink = p.website ? `
+        <a href="${p.website}" class="project-link project-link--text project-link--accent" target="_blank" rel="noopener noreferrer"
+           aria-label="Open live site for ${escAttr(p.name)}">website</a>` : '';
+
+      const demoLink = p.demo ? `
+        <a href="${p.demo}" class="project-link project-link--text project-link--demo" target="_blank" rel="noopener noreferrer"
+           aria-label="Watch demo for ${escAttr(p.name)}">demo</a>` : '';
+
       return `
       <article class="project-card" role="listitem">
         <div class="project-card-header">
@@ -202,16 +214,7 @@
           <span class="project-name">${escHtml(p.name)}</span>
           ${showStars ? `<span class="project-stars" aria-label="${escAttr(p.stars)} stars">${escHtml(p.stars)}</span>` : ''}
           <span class="project-actions">
-            ${p.website ? `
-              <a href="${p.website}" class="project-link project-link--site" target="_blank" rel="noopener noreferrer"
-                 aria-label="Visit live site for ${escAttr(p.name)}" title="Live site">
-                ${ICONS.globe}
-              </a>` : ''}
-            ${p.url ? `
-              <a href="${p.url}" class="project-link" target="_blank" rel="noopener noreferrer"
-                 aria-label="View ${escAttr(p.name)} on GitHub" title="GitHub repo">
-                ${ICONS.link}
-              </a>` : ''}
+            ${websiteLink}${demoLink}${githubLink}
           </span>
         </div>
         <p class="project-desc">${escHtml(p.description)}</p>
