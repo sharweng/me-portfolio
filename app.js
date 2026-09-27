@@ -53,22 +53,74 @@
   const THEME_KEY = 'portfolio-theme';
   const html = document.documentElement;
 
-  function applyTheme(t) {
-    html.setAttribute('data-theme', t);
-    localStorage.setItem(THEME_KEY, t);
+  // Ordered list of themes — label shown in the button
+  const THEMES = [
+    { id: 'tokyo-night',      label: 'tokyo night'      },
+    { id: 'catppuccin-latte', label: 'catppuccin latte' },
+    { id: 'gruvbox',          label: 'gruvbox'          },
+    { id: 'rose-pine',        label: 'rosé pine'        },
+    { id: 'nord',             label: 'nord'             },
+    { id: 'everforest',       label: 'everforest'       },
+  ];
+
+  function applyTheme(id, silent = false) {
+    const theme = THEMES.find(t => t.id === id) || THEMES[0];
+    html.setAttribute('data-theme', theme.id);
+    localStorage.setItem(THEME_KEY, theme.id);
+    // Update button label
+    const labelEl = $('theme-label');
+    if (labelEl) labelEl.textContent = theme.label;
+    // Mark selected option
+    document.querySelectorAll('.theme-option').forEach(opt => {
+      opt.setAttribute('aria-selected', opt.dataset.themeId === theme.id ? 'true' : 'false');
+    });
+    if (!silent) showToast(theme.label);
   }
 
   function initTheme() {
     const saved = localStorage.getItem(THEME_KEY);
-    if (saved) { applyTheme(saved); return; }
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    applyTheme(prefersDark ? 'dark' : 'light');
+    const startId = (saved && THEMES.find(t => t.id === saved)) ? saved
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'tokyo-night' : 'catppuccin-latte');
+    applyTheme(startId, true);
   }
 
-  $('theme-toggle').addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    applyTheme(current === 'dark' ? 'light' : 'dark');
-  });
+  /* ── Dropdown open / close / select ──────────────────── */
+  (function initThemeDropdown() {
+    const picker   = $('theme-picker');
+    const toggle   = $('theme-toggle');
+    const dropdown = $('theme-dropdown');
+    if (!picker || !toggle || !dropdown) return;
+
+    function openDropdown() {
+      picker.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDropdown() {
+      picker.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      picker.classList.contains('open') ? closeDropdown() : openDropdown();
+    });
+
+    dropdown.addEventListener('click', (e) => {
+      const opt = e.target.closest('.theme-option');
+      if (!opt) return;
+      applyTheme(opt.dataset.themeId);
+      closeDropdown();
+    });
+
+    // Close on outside click
+    document.addEventListener('click', () => closeDropdown());
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDropdown();
+    });
+  })();
 
   initTheme();
 
@@ -95,7 +147,8 @@
     // Social links
     const linksEl = $('hero-links');
     if (!linksEl) return;
-    linksEl.innerHTML = p.links.map(l => `
+
+    const linkItems = p.links.map(l => `
       <a href="${l.comingSoon ? '#' : l.url}"
          class="hero-link${l.comingSoon ? ' hero-link--soon' : ''}"
          ${l.comingSoon ? '' : 'rel="noopener noreferrer" target="_blank"'}
@@ -107,11 +160,27 @@
       </a>
     `).join('');
 
+    // Resume — always rendered next to email; greyed out with tooltip if no URL set
+    const resumeHref = p.resume || '#';
+    const resumeAttrs = p.resume
+      ? 'target="_blank" rel="noopener noreferrer"'
+      : 'aria-disabled="true" tabindex="-1"';
+    const resumeClass = `hero-link hero-link--resume${p.resume ? '' : ' hero-link--soon'}`;
+    const resumeItem = `
+      <a href="${resumeHref}" class="${resumeClass}"
+         ${resumeAttrs} role="listitem" aria-label="Open resume" id="resume-link">
+        ${ICONS.link}
+        resume
+      </a>`;
+
+    linksEl.innerHTML = linkItems + resumeItem;
+
     // Intercept coming-soon link clicks
     linksEl.querySelectorAll('.hero-link--soon').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
-        showToast('This page is currently in development');
+        if (a.id === 'resume-link') showToast('No resume URL set — add it to data.js');
+        else showToast('This page is currently in development');
       });
     });
   }
@@ -171,40 +240,6 @@
     `).join('');
   }
 
-  /* ── Render posts ─────────────────────────────────────── */
-  function renderPosts(posts) {
-    const list = $('post-list');
-    if (!list || !posts?.length) {
-      const section = $('writing');
-      if (section && !posts?.length) section.style.display = 'none';
-      return;
-    }
-
-    list.innerHTML = posts.map(post => `
-      <li class="post-item${post.comingSoon ? ' post-item--soon' : ''}" role="listitem">
-        <a href="${post.comingSoon ? '#' : post.url}"
-           class="post-link"
-           ${post.comingSoon ? '' : 'target="_blank" rel="noopener noreferrer"'}>
-          <span class="post-title">${escHtml(post.title)}</span>
-          <span class="post-meta">
-            <span class="post-date">${escHtml(post.date)}</span>
-            ${post.comingSoon
-        ? '<span class="soon-badge">coming soon</span>'
-        : `<span class="post-arrow" aria-hidden="true">${ICONS.arrow}</span>`
-      }
-          </span>
-        </a>
-      </li>
-    `).join('');
-
-    // Intercept coming-soon post clicks
-    list.querySelectorAll('.post-item--soon .post-link').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        showToast('This post doesn\'t exist yet — check back soon!');
-      });
-    });
-  }
 
   /* ── Render footer ────────────────────────────────────── */
   function renderFooter(p) {
@@ -267,9 +302,8 @@
     }
 
     renderHero(PORTFOLIO);
-    renderProjects(PORTFOLIO.projects || []);
     renderCredentials(PORTFOLIO.credentials || []);
-    renderPosts(PORTFOLIO.posts);
+    renderProjects(PORTFOLIO.projects || []);
     renderFooter(PORTFOLIO);
 
     initScrollEffects();

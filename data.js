@@ -12,13 +12,13 @@ const PORTFOLIO = {
   location: "Taguig, PH",
   bio: "I build thoughtful software that respects users. Currently focused on systems programming, developer tooling, and the occasional weekend distro hack.",
   avatar: "https://res.cloudinary.com/dcug5cq7c/image/upload/v1790440300/240322-DSC08307_2_g1keuf.jpg", // GitHub profile pic — change to any image URL
+  resume: "", // Add a direct link to your resume PDF here, e.g. "/resume.pdf" or a Google Drive URL
 
   /* ── Social / contact links ─────────────────────────────── */
   links: [
     { label: "GitHub",   url: "https://github.com/sharweng",                   icon: "github"   },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/sharwinjohnmarbella", icon: "linkedin" },
     { label: "Email",    url: "mailto:marbellasharwinjohn@gmail.com",           icon: "mail"     },
-    { label: "Blog",     url: "https://yourblog.com", icon: "rss", comingSoon: true },
   ],
 
   /* ── Skills / credentials ───────────────────────────────── */

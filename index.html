@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="tokyo-night">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Portfolio</title>
-  <meta name="description" content="Personal portfolio — software engineer & open-source contributor.">
+  <meta name="description" content="Personal portfolio — software engineer &amp; open-source contributor.">
 
   <!-- Preload fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,24 +28,28 @@
       </a>
 
       <div class="nav-links" id="nav-links">
-        <a href="#projects" class="nav-link">projects</a>
         <a href="#credentials" class="nav-link">skills</a>
-        <a href="#writing" class="nav-link">writing</a>
+        <a href="#projects" class="nav-link">projects</a>
       </div>
 
       <div class="nav-actions">
-        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle light / dark">
-          <svg id="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
-            <path
-              d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-          </svg>
-          <svg id="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
+        <!-- Theme dropdown -->
+        <div class="theme-picker" id="theme-picker">
+          <button class="theme-btn" id="theme-toggle" aria-haspopup="listbox" aria-expanded="false" aria-label="Change color theme">
+            <span id="theme-label">tokyo night</span>
+            <svg class="theme-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="theme-dropdown" id="theme-dropdown" role="listbox" aria-label="Color themes">
+            <li class="theme-option" role="option" data-theme-id="tokyo-night">tokyo night</li>
+            <li class="theme-option" role="option" data-theme-id="catppuccin-latte">catppuccin latte</li>
+            <li class="theme-option" role="option" data-theme-id="gruvbox">gruvbox</li>
+            <li class="theme-option" role="option" data-theme-id="rose-pine">rosé pine</li>
+            <li class="theme-option" role="option" data-theme-id="nord">nord</li>
+            <li class="theme-option" role="option" data-theme-id="everforest">everforest</li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
@@ -69,17 +73,7 @@
       </div>
     </section>
 
-    <!-- Projects -->
-    <section class="section" id="projects" aria-labelledby="projects-heading">
-      <div class="section-inner">
-        <h2 class="section-title" id="projects-heading">
-          <span class="section-prefix" aria-hidden="true">~/</span>projects
-        </h2>
-        <div class="project-grid" id="project-grid" role="list"></div>
-      </div>
-    </section>
-
-    <!-- Credentials / Skills -->
+    <!-- Skills / Credentials -->
     <section class="section section-alt" id="credentials" aria-labelledby="credentials-heading">
       <div class="section-inner">
         <h2 class="section-title" id="credentials-heading">
@@ -89,13 +83,13 @@
       </div>
     </section>
 
-    <!-- Writing -->
-    <section class="section" id="writing" aria-labelledby="writing-heading">
+    <!-- Projects -->
+    <section class="section" id="projects" aria-labelledby="projects-heading">
       <div class="section-inner">
-        <h2 class="section-title" id="writing-heading">
-          <span class="section-prefix" aria-hidden="true">~/</span>writing
+        <h2 class="section-title" id="projects-heading">
+          <span class="section-prefix" aria-hidden="true">~/</span>projects
         </h2>
-        <ul class="post-list" id="post-list" role="list"></ul>
+        <div class="project-grid" id="project-grid" role="list"></div>
       </div>
     </section>
 
