@@ -1,6 +1,7 @@
 /**
  * ============================================================
  *  PORTFOLIO DATA — edit this file to update your portfolio
+ *  After personal info changes, run: node scripts/sync-profile.cjs
  * ============================================================
  */
 
@@ -11,14 +12,14 @@ const PORTFOLIO = {
   title: "Software Engineer & Open-Source Contributor",
   location: "Taguig, PH",
   bio: "I build thoughtful software that respects users. Currently focused on systems programming, developer tooling, and the occasional weekend distro hack.",
-  avatar: "https://res.cloudinary.com/dcug5cq7c/image/upload/v1790440300/240322-DSC08307_2_g1keuf.jpg", // GitHub profile pic — change to any image URL
+  avatar: "https://res.cloudinary.com/dcug5cq7c/image/upload/c_fill,w_320,h_320/f_auto/q_auto/v1790440300/240322-DSC08307_2_g1keuf.jpg", // 320px for a sharp 160px avatar. Run the profile sync script after changing this URL.
   resume: "", // Add a direct link to your resume PDF here, e.g. "/resume.pdf" or a Google Drive URL
 
   /* ── Social / contact links ─────────────────────────────── */
   links: [
-    { label: "GitHub",   url: "https://github.com/sharweng",                   icon: "github"   },
+    { label: "GitHub", url: "https://github.com/sharweng", icon: "github" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/sharwinjohnmarbella", icon: "linkedin" },
-    { label: "Email",    url: "mailto:marbellasharwinjohn@gmail.com",           icon: "mail"     },
+    { label: "Email", url: "mailto:marbellasharwinjohn@gmail.com", icon: "mail" },
   ],
 
   /* ── Skills / credentials ───────────────────────────────── */
@@ -34,6 +35,28 @@ const PORTFOLIO = {
     {
       category: "Currently Exploring",
       items: ["Hyprland", "Game development", "Game engines", "AI-assisted workflows"],
+    },
+  ],
+
+  /* Certifications — copy the example for DataCamp or any other issuer.
+     Use your actual title/date and public credential URL. image is optional.
+     Dates use YYYY-MM; omit unknown fields. No example is published by default. */
+  certifications: [
+    // {
+    //   name: "Your completed course or certification",
+    //   issuer: "DataCamp",
+    //   date: "2026-10",
+    //   url: "https://www.datacamp.com/completed/statement-of-accomplishment/...",
+    //   skills: ["Python", "Data Analysis"],
+    //   image: "", // Optional small certificate preview URL or assets/certificate.webp
+    // },
+    {
+      name: "SQL Fundamentals",
+      issuer: "DataCamp",
+      date: "2026-10",
+      url: "https://www.datacamp.com/completed/statement-of-accomplishment/track/7f51154cb28356e3793901b9a50daa9e76c26b74",
+      skills: ["SQL", "PostgreSQL", "Data Analyis", "Data Manipulation"],
+      image: "https://res.cloudinary.com/dcug5cq7c/image/upload/c_limit,w_960/f_auto/q_auto/v1792640640/sql_fundamentals_tvq4o0.png",
     },
   ],
 

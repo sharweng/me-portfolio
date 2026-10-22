@@ -3,11 +3,21 @@
 
 <head>
   <meta charset="utf-8">
+  <!-- Profile sharing metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sharwin John Marbella — Portfolio">
+  <meta property="og:description" content="Sharwin John Marbella — Software Engineer &amp; Open-Source Contributor. I build thoughtful software that respects users. Currently focused on systems programming, developer tooling, and the occasional weekend distro hack.">
+  <meta property="og:image" content="https://res.cloudinary.com/dcug5cq7c/image/upload/c_fill,w_320,h_320/f_auto/q_auto/v1790440300/240322-DSC08307_2_g1keuf.jpg">
+  <meta property="og:image:alt" content="Sharwin John Marbella">
+  <meta name="twitter:card" content="summary">
+  <!-- End profile sharing metadata -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio</title>
-  <meta name="description" content="Personal portfolio — software engineer &amp; open-source contributor.">
+  <title>Sharwin John Marbella — Portfolio</title>
+  <meta name="description" content="Sharwin John Marbella — Software Engineer &amp; Open-Source Contributor. I build thoughtful software that respects users. Currently focused on systems programming, developer tooling, and the occasional weekend distro hack.">
 
-  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://res.cloudinary.com">
+
+  <!-- Font connections -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -27,13 +37,14 @@
   <!-- ── Nav ──────────────────────────────────────────────── -->
   <header id="site-header">
     <nav class="nav-inner">
-      <a href="/" class="nav-brand" id="nav-brand" aria-label="Home">
-        <span class="brand-name" id="brand-name">portfolio</span>
+      <a href="./" class="nav-brand" id="nav-brand" aria-label="Home">
+        <span class="brand-name" id="brand-name">sharwin.john.marbella</span>
       </a>
 
       <div class="nav-links" id="nav-links">
         <a href="#credentials" class="nav-link">skills</a>
         <a href="#projects" class="nav-link">projects</a>
+        <a href="#certifications" class="nav-link">certifications</a>
       </div>
 
       <div class="nav-actions">
@@ -64,13 +75,13 @@
     <!-- Hero -->
     <section class="hero" id="hero">
       <div class="hero-inner">
-        <div class="hero-avatar" id="hero-avatar" aria-hidden="true"></div>
+        <div class="hero-avatar" id="hero-avatar" aria-hidden="true"><img src="https://res.cloudinary.com/dcug5cq7c/image/upload/c_fill,w_320,h_320/f_auto/q_auto/v1790440300/240322-DSC08307_2_g1keuf.jpg" alt="" width="160" height="160" fetchpriority="high" loading="eager" decoding="async"></div>
         <div class="hero-text">
-          <h1 class="hero-name" id="hero-name"></h1>
-          <p class="hero-title" id="hero-title"></p>
-          <p class="hero-bio" id="hero-bio"></p>
+          <h1 class="hero-name" id="hero-name">Sharwin John Marbella</h1>
+          <p class="hero-title" id="hero-title">Software Engineer &amp; Open-Source Contributor</p>
+          <p class="hero-bio" id="hero-bio">I build thoughtful software that respects users. Currently focused on systems programming, developer tooling, and the occasional weekend distro hack.</p>
           <div class="hero-meta" id="hero-meta">
-            <span class="hero-location" id="hero-location"></span>
+            <span class="hero-location" id="hero-location">Taguig, PH</span>
           </div>
           <div class="hero-links" id="hero-links" role="list" aria-label="Social links"></div>
         </div>
@@ -97,6 +108,15 @@
       </div>
     </section>
 
+    <section class="section section-alt" id="certifications" aria-labelledby="certifications-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="certifications-heading">
+          <span class="section-prefix" aria-hidden="true">~/</span>certifications
+        </h2>
+        <div class="certification-grid" id="certification-grid"></div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ── Footer ────────────────────────────────────────────── -->
@@ -108,14 +128,14 @@
   </footer>
 
   <!-- Data + App -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
 
   <!-- Service Worker registration -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
           .then(r => console.log('[SW] registered', r.scope))
           .catch(e => console.warn('[SW] failed', e));
       });

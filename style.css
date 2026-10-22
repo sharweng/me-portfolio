@@ -3,9 +3,6 @@
    Theme tokens live in [data-theme="<name>"] selectors
    ═══════════════════════════════════════════════════════════ */
 
-/* ── Google Fonts fallback @import if network available ──── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600&display=swap');
-
 /* ── CSS Reset ──────────────────────────────────────────── */
 *,
 *::before,
@@ -957,4 +954,39 @@ body {
 #portfolio-toast.toast-hide {
   opacity: 0;
   transform: translateX(-50%) translateY(8px);
+}
+/* Certifications share the terminal typography and all six theme palettes. */
+.certification-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.certification-card, .certification-empty { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); overflow: hidden; }
+.certification-card { display: flex; flex-direction: column; }
+.certification-card:hover { border-color: var(--brand-dim); }
+.certification-body { padding: 1.25rem; display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; gap: 0.875rem 1.5rem; flex: 1; }
+.certification-body:has(.certification-image) { grid-template-columns: minmax(0, 1fr) 190px; }
+.certification-body > .certification-name, .certification-body > .project-tags, .certification-body > .certification-link { grid-column: 1; }
+.certification-meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1rem; width: 100%; font: 0.72rem var(--font-mono); color: var(--brand); }
+.certification-meta time { color: var(--text-secondary); }
+.certification-name { font: 500 0.95rem/1.5 var(--font-mono); overflow-wrap: anywhere; }
+.certification-image { grid-column: 2; grid-row: 2 / span 3; width: 190px; max-width: 100%; height: auto; aspect-ratio: auto 640 / 450; object-fit: contain; background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.certification-link { justify-self: start; }
+.certification-empty { grid-column: 1 / -1; padding: 1.25rem; color: var(--text-secondary); font-size: 0.875rem; }
+.certification-prompt { display: block; color: var(--brand); font: 0.75rem var(--font-mono); margin-bottom: 0.75rem; }
+section[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+@media (min-width: 601px) and (max-width: 900px) {
+  .nav-inner { gap: 0.5rem; }
+  .nav-brand { min-width: 0; flex: 1; }
+  .brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .nav-link { padding-inline: 0.4rem; }
+}
+
+@media (max-width: 600px) {
+  .certification-body { padding: 1rem; column-gap: 0.75rem; }
+  .certification-body:has(.certification-image) { grid-template-columns: minmax(0, 1fr) 100px; }
+  .certification-image { width: 100px; }
+}
+
+.nav-link[aria-current="location"] { color: var(--brand); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

@@ -129,7 +129,18 @@
     // Avatar
     const avatar = $('hero-avatar');
     if (p.avatar) {
-      avatar.innerHTML = `<img src="${p.avatar}" alt="${p.name} avatar">`;
+      const img = avatar.querySelector('img') || el('img');
+      img.width = 160;
+      img.height = 160;
+      img.alt = '';
+      img.fetchPriority = 'high';
+      img.loading = 'eager';
+      img.decoding = 'async';
+      img.addEventListener('error', () => {
+        avatar.textContent = p.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      });
+      if (img.getAttribute('src') !== p.avatar) img.src = p.avatar;
+      if (!img.isConnected) avatar.replaceChildren(img);
     } else {
       const initials = p.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
       avatar.textContent = initials;
@@ -244,6 +255,40 @@
   }
 
 
+  // Allow web URLs and relative asset paths, without executable URL schemes.
+  function assetUrl(value) {
+    if (!value) return '';
+    try {
+      const url = new URL(value, document.baseURI);
+      return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
+    } catch { return ''; }
+  }
+
+  function renderCertifications(certifications) {
+    const grid = $('certification-grid');
+    if (!grid) return;
+    if (!certifications.length) {
+      grid.innerHTML = '<div class="certification-empty"><span class="certification-prompt" aria-hidden="true">$ ls ~/certifications</span><p>Certificates will appear here as I add them.</p></div>';
+      return;
+    }
+    grid.innerHTML = certifications.map(c => {
+      const url = assetUrl(c.url);
+      const image = assetUrl(c.image);
+      const validDate = /^\d{4}-(0[1-9]|1[0-2])$/.test(c.date || '');
+      const date = validDate ? new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${c.date}-01T00:00:00Z`)) : '';
+      return `<article class="certification-card">
+        <div class="certification-body">
+          <div class="certification-meta"><span>${escHtml(c.issuer)}</span>${date ? `<time datetime="${escAttr(c.date)}">${date}</time>` : ''}</div>
+          ${image ? `<img class="certification-image" src="${escAttr(image)}" alt="${escAttr(c.name)} certificate preview" width="640" height="450" loading="lazy" decoding="async">` : ''}
+          <h3 class="certification-name">${escHtml(c.name)}</h3>
+          ${c.skills?.length ? `<div class="project-tags">${c.skills.map(skill => `<span class="tag">${escHtml(skill)}</span>`).join('')}</div>` : ''}
+          ${url ? `<a class="hero-link certification-link" href="${escAttr(url)}" target="_blank" rel="noopener noreferrer" aria-label="View certificate: ${escAttr(c.name)}">view certificate ${ICONS.link}</a>` : ''}
+        </div>
+      </article>`;
+    }).join('');
+    grid.querySelectorAll('img').forEach(img => img.addEventListener('error', () => img.remove()));
+  }
+
   /* ── Render footer ────────────────────────────────────── */
   function renderFooter(p) {
     const year = new Date().getFullYear();
@@ -265,21 +310,80 @@
 
   /* ── Active nav link highlighting ─────────────────────── */
   function initActiveNav() {
-    const sections = document.querySelectorAll('section[id]');
-    const links = document.querySelectorAll('.nav-link');
+    const links = [...document.querySelectorAll('.nav-link')];
+    const sections = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    let pendingId = null;
+    let settleTimer;
+    let frame = null;
 
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          links.forEach(l => {
-            const active = l.getAttribute('href') === `#${e.target.id}`;
-            l.style.color = active ? 'var(--brand)' : '';
-          });
-        }
+    function select(id) {
+      links.forEach(link => {
+        const active = link.getAttribute('href') === `#${id}`;
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
       });
-    }, { rootMargin: '-40% 0px -55% 0px' });
+    }
 
-    sections.forEach(s => obs.observe(s));
+    function update() {
+      frame = null;
+      if (pendingId) return;
+      const root = document.documentElement;
+      const atBottom = window.scrollY > 0 && window.scrollY + window.innerHeight >= root.scrollHeight - 2;
+      let activeId = null;
+      for (const section of sections) {
+        // Match the anchor's scroll offset below the sticky header.
+        const offset = parseFloat(getComputedStyle(section).scrollMarginTop) || 0;
+        if (section.getBoundingClientRect().top <= offset + 2) activeId = section.id;
+      }
+      if (atBottom && sections.length) activeId = sections[sections.length - 1].id;
+      select(activeId);
+    }
+
+    function scheduleUpdate() {
+      if (frame === null) frame = requestAnimationFrame(update);
+    }
+
+    function finishScroll() {
+      clearTimeout(settleTimer);
+      pendingId = null;
+      scheduleUpdate();
+    }
+
+    function selectTarget(id) {
+      if (!sections.some(section => section.id === id)) return;
+      pendingId = id;
+      select(id);
+      // Also handles clicking an anchor that is already at its destination.
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(finishScroll, 200);
+    }
+
+    links.forEach(link => link.addEventListener('click', event => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      selectTarget(link.hash.slice(1));
+    }));
+    window.addEventListener('hashchange', () => {
+      const id = window.location.hash.slice(1);
+      if (sections.some(section => section.id === id)) selectTarget(id);
+      else finishScroll();
+    });
+    window.addEventListener('scroll', () => {
+      if (pendingId) {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(finishScroll, 200);
+      }
+      scheduleUpdate();
+    }, { passive: true });
+    window.addEventListener('wheel', finishScroll, { passive: true });
+    window.addEventListener('touchstart', finishScroll, { passive: true });
+    window.addEventListener('keydown', event => {
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) finishScroll();
+    });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('load', scheduleUpdate);
+    if ('ResizeObserver' in window) new ResizeObserver(scheduleUpdate).observe(document.body);
+    update();
+    selectTarget(window.location.hash.slice(1));
   }
 
   /* ── XSS helpers ──────────────────────────────────────── */
@@ -307,6 +411,7 @@
     renderHero(PORTFOLIO);
     renderCredentials(PORTFOLIO.credentials || []);
     renderProjects(PORTFOLIO.projects || []);
+    renderCertifications(PORTFOLIO.certifications || []);
     renderFooter(PORTFOLIO);
 
     initScrollEffects();
