@@ -7,9 +7,9 @@ const root = path.join(__dirname, '..');
 const p = vm.runInNewContext(fs.readFileSync(path.join(root, 'data.js'), 'utf8') + '\nPORTFOLIO');
 const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 let html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-html = html.replace(/<title>.*?<\/title>/, `<title>${escape(p.name)} — Portfolio</title>`);
+html = html.replace(/<title>.*?<\/title>/, () => `<title>${escape(p.name)} — Portfolio</title>`);
 const description = `${p.name} — ${p.title}. ${p.bio}`;
-html = html.replace(/(<meta name="description" content=")[^"]*/, `$1${escape(description)}`);
+html = html.replace(/(<meta name="description" content=")[^"]*/, (_, prefix) => prefix + escape(description));
 for (const [id, value] of Object.entries({'hero-name':p.name,'hero-title':p.title,'hero-bio':p.bio,'hero-location':p.location,'brand-name':p.name.toLowerCase().replace(/\s+/g,'.')})) {
   html = html.replace(new RegExp(`(id="${id}">)[^<]*`), (_, prefix) => prefix + escape(value));
 }
@@ -23,6 +23,6 @@ const metadata = `  <!-- Profile sharing metadata -->
   <meta property="og:image:alt" content="${escape(p.name)}">
   <meta name="twitter:card" content="summary">
   <!-- End profile sharing metadata -->\n`;
-html = html.replace('  <meta name="viewport"', metadata + '  <meta name="viewport"');
+html = html.replace('  <meta name="viewport"', () => metadata + '  <meta name="viewport"');
 fs.writeFileSync(path.join(root, 'index.html'), html);
 console.log('Synced static profile and sharing metadata.');
